@@ -25,7 +25,8 @@
 ## 진행 상황
 
 - [x] 1. 환경 세팅 — Next.js 프로젝트, Firebase SDK, GitHub
-- [ ] 1-1. Firebase 프로젝트 생성 후 `.env.local` / Vercel 환경변수 입력, Vercel 연결
+- [x] 1-1. Firebase 프로젝트(`symji-e378e`) 연결 — 공개 설정값은 `src/lib/firebase/client.ts`에 포함
+- [ ] 1-2. Firestore 데이터베이스 생성 + 보안 규칙 게시, Vercel 연결
 - [x] 2. 디자인 기반 — 컬러, 폰트, 로고, 헤더·푸터
 - [x] 3. 화면 — 홈, 브랜드 스토리, 상품 목록, 상품 상세 (Firebase 연결 전에는 임시 상품 표시)
 - [ ] 4. 로그인 — 구글 → 카카오 · 네이버 (서버에서 Firebase 커스텀 토큰 발급)
@@ -36,6 +37,6 @@
 
 ```bash
 npm install
-cp .env.example .env.local   # Firebase 값 채우기 (없어도 임시 상품으로 실행됨)
+# Firebase 설정은 코드에 포함되어 있어 별도 입력 없이 실행됩니다
 npm run dev                  # http://localhost:3000
 ```
