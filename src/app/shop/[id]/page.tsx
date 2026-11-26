@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   // Cache Components 사용 시 최소 1개가 필요해서, 상품이 없으면 자리표시 값을 둡니다
   return products.length
     ? products.map((p) => ({ id: p.id }))
-    : [{ id: "__placeholder__" }];
+    : [{ id: "coming-soon" }];
 }
 
 export async function generateMetadata({

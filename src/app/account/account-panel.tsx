@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/components/auth/auth-provider";
 
 export function AccountPanel() {
-  const { user, ready, signOut } = useAuth();
+  const { user, ready, isAdmin, signOut } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -30,7 +30,16 @@ export function AccountPanel() {
         </div>
       </dl>
       <p className="text-sm text-muted">주문 내역과 배송지 관리는 결제 기능과 함께 추가돼요.</p>
-      <div className="flex gap-3">
+      {isAdmin && (
+        <Link
+          href="/admin"
+          className="block rounded-2xl bg-charcoal px-6 py-5 text-pink hover:bg-charcoal/90"
+        >
+          <span className="eyebrow text-pink/70">Admin</span>
+          <span className="mt-1 block font-bold">관리자 페이지 · 상품 관리 →</span>
+        </Link>
+      )}
+      <div className="flex flex-wrap gap-3">
         <Link
           href="/shop"
           className="rounded-full bg-brown px-6 py-3 text-sm font-bold text-pink hover:bg-brown-deep"

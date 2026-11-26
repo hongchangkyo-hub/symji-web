@@ -1,14 +1,27 @@
 rules_version = '2';
 
 // 심지 쇼핑몰 Firestore 보안 규칙
-// - 상품: 누구나 읽기, 쓰기는 관리자(서버)만
+// - 관리자: admins/{이메일} 문서가 있는 구글 로그인 계정
+// - 상품: 누구나 읽기, 쓰기는 관리자만
 // - 회원·장바구니: 본인만
 // - 주문: 본인 것만 읽기, 생성·수정은 결제 검증 서버(Admin SDK)만
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && exists(/databases/$(database)/documents/admins/$(request.auth.token.email));
+    }
+
+    // 관리자 목록: 본인 이메일 문서만 확인 가능, 추가는 Firebase 콘솔에서만
+    match /admins/{email} {
+      allow read: if request.auth != null && request.auth.token.email == email;
+      allow write: if false;
+    }
+
     match /products/{productId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isAdmin();
     }
 
     match /users/{uid} {

@@ -6,25 +6,11 @@ import {
   getDocsFromServer,
   query,
   where,
-  type DocumentData,
 } from "firebase/firestore";
 import { getDb } from "./firebase/client";
+import { toProduct } from "./product-mapper";
 import { SAMPLE_PRODUCTS } from "./sample-products";
 import type { Product } from "./types";
-
-function toProduct(id: string, data: DocumentData): Product {
-  return {
-    id,
-    name: String(data.name ?? ""),
-    price: Number(data.price ?? 0),
-    summary: String(data.summary ?? ""),
-    description: String(data.description ?? ""),
-    imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls.map(String) : [],
-    stock: Number(data.stock ?? 0),
-    isActive: Boolean(data.isActive),
-    sortOrder: Number(data.sortOrder ?? 0),
-  };
-}
 
 /** 판매 중인 상품 목록 (정렬 순서대로) */
 export async function getProducts(): Promise<Product[]> {

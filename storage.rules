@@ -1,0 +1,21 @@
+rules_version = '2';
+
+// 심지 쇼핑몰 Storage 보안 규칙
+// - 상품 사진: 누구나 보기, 올리기·지우기는 관리자만 (10MB 이하 이미지)
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && firestore.exists(/databases/(default)/documents/admins/$(request.auth.token.email));
+    }
+
+    match /products/{fileName} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+  }
+}
