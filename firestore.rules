@@ -1,0 +1,28 @@
+rules_version = '2';
+
+// 심지 쇼핑몰 Firestore 보안 규칙
+// - 상품: 누구나 읽기, 쓰기는 관리자(서버)만
+// - 회원·장바구니: 본인만
+// - 주문: 본인 것만 읽기, 생성·수정은 결제 검증 서버(Admin SDK)만
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /users/{uid} {
+      allow read, create, update: if request.auth != null && request.auth.uid == uid;
+      allow delete: if false;
+    }
+
+    match /carts/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    match /orders/{orderId} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+      allow write: if false;
+    }
+  }
+}

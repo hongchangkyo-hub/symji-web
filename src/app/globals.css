@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/*
+ * Symji 디자인 토큰
+ * 출처: Symji 초기 제안서(2024-08-30), 최종 로고 시안(2024-09-12)
+ *  - Symji Pink   C8 M13 K7   → #E7DADD
+ *  - Symji Brown  C25 M80 Y90 K25 → #994429
+ *  - Charcoal Black → #231F20
+ */
+:root {
+  --symji-pink: #e7dadd;
+  --symji-pink-soft: #f4eef0;
+  --symji-brown: #994429;
+  --symji-brown-deep: #7a3520;
+  --symji-charcoal: #231f20;
+  --symji-paper: #f0efed;
+  --symji-muted: #6e6668;
+  --symji-line: #d6c9cc;
+
+  --background: var(--symji-pink-soft);
+  --foreground: var(--symji-charcoal);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-pink: var(--symji-pink);
+  --color-pink-soft: var(--symji-pink-soft);
+  --color-brown: var(--symji-brown);
+  --color-brown-deep: var(--symji-brown-deep);
+  --color-charcoal: var(--symji-charcoal);
+  --color-paper: var(--symji-paper);
+  --color-muted: var(--symji-muted);
+  --color-line: var(--symji-line);
+
+  /* 한글: 민산스(Min Sans). 영문 Mint Grotesk는 웹폰트 라이선스 확인 전이라 민산스로 대체 */
+  --font-sans: "MinSansVF", "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
+    sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 500; /* 본문: Medium */
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+/* 브랜드 가이드: 영문 소제목은 ALL CAPS + 자간 20 */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: var(--symji-brown);
+  color: var(--symji-pink);
+}
