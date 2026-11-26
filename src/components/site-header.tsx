@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { AuthNavLink } from "@/components/auth/auth-nav-link";
 import { Wordmark } from "@/components/brand/logo";
 
 const NAV = [
   { href: "/story", label: "브랜드 스토리" },
   { href: "/shop", label: "상품" },
   { href: "/cart", label: "장바구니" },
-  { href: "/login", label: "로그인" },
 ] as const;
 
 export function SiteHeader() {
@@ -27,6 +27,9 @@ export function SiteHeader() {
                 </Link>
               </li>
             ))}
+            <li>
+              <AuthNavLink className="whitespace-nowrap transition-colors hover:text-brown" />
+            </li>
           </ul>
         </nav>
       </div>
